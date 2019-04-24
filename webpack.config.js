@@ -10,6 +10,7 @@ const path = require("path");   // Node 官方 模块  Http / Url
 const htmlWebpackPlugin = require("html-webpack-plugin"); // 处理 HTML
 const openBrowserWebpackPlugin =  require("open-browser-webpack-plugin");
 const extractTextWebpackPlugin  = require("extract-text-webpack-plugin");  // 抽离样式
+const webpack = require("webpack");
 
 module.exports = {
      entry:["./src/main.js"] ,  // 入口文件
@@ -125,7 +126,11 @@ module.exports = {
              filename:"css/app.[hash:8].css",
              allChunks:true,  // 编译所有数据
              disable:false  // true 不抽离
-         })
+         }),
+         new webpack.ProvidePlugin({
+             React: "react",                            //设置React为全家变量 不用import
+             Component: ['react', 'Component']          //设置 React下面的Component 为全局变量  也不用 import
+         }),
      ]
 
 }
